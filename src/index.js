@@ -8,28 +8,21 @@ import { combineReducers, createStore } from 'redux'
 
 // => BUT... How we App(UI Component) access our STORE?
 // Using `Provider` 
+// In component we need "connect" to connect UI Component and "STORE"
 import { Provider } from 'react-redux'
 
 // Wrapping our <App /> inside <Provider>
-// ReactDOM.render(<Provider><App /></Provider>, document.getElementById('root'))
+// and passing STORE to it
+// ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'))
 
 
 
-function productsReducer(state = [], action) {
-  return state
-}
+// === REDUCERS ===
+// => move reducers to separate folder
+// and then import it
+import productsReducer from './reducers/products-reducer'
+import userReducer from './reducers/user-reducer'
 
-// => USING ES6 destructing features
-function userReducer(state = '', { type, payload }) {
-  // store Seeing the Action
-  switch (type) {
-    case 'UPDATE_USER':
-      return payload
-    
-    default:
-      return state
-  }
-}
 
 // => Combine ALL reducers
 const allReducers = combineReducers({
@@ -57,9 +50,16 @@ console.log(store.getState())
 
 // => How we App(UI Component) access our STORE?
 // Using `Provider` and then Wrapping our <App /> inside <Provider>
+// and passing STORE to it
+// 
+// In component we need "connect" to connect UI Component and "STORE"
 ReactDOM.render(
-  <Provider>
-    <App />
+  <Provider store={store}>
+    {/* <App /> */}
+
+    {/* Passing own props */}
+    {/* 在 mapStateToProps, mapActionsToProps 的第二个参数可以访问得到 */}
+    <App aRandomProps="whatever" bRandomProps="whatever again" />
   </Provider>, 
   document.getElementById('root')
 )
