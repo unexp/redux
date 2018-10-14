@@ -16,11 +16,6 @@ import { Provider } from 'react-redux'
 // ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'))
 
 
-// ASYNC/Operation
-import thunk from 'redux-thunk'
-import { applyMiddleware, compose } from 'redux'
-
-
 
 // === REDUCERS ===
 // => move reducers to separate folder
@@ -31,30 +26,19 @@ import userReducer from './reducers/user-reducer'
 
 // => Combine ALL reducers
 const allReducers = combineReducers({
-  products: productsReducer,
+  produces: productsReducer,
   user: userReducer
 })
-
-
-// Adding Middleware
-const allStoreEnhancers = compose(
-  applyMiddleware(thunk),
-  window.devToolsExtension && window.devToolsExtension()
-)
 
 // => 你也许喜欢 redux Chrome dev tool
 // createStore 的第三个入参
 const store = createStore(
   allReducers, 
   {
-    products: [{ name: 'iPhone' }],
+    produces: [{ name: 'iPhone' }],
     user: 'Michael'
   },
-
-  // window.devToolsExtension && window.devToolsExtension()
-
-  // after adding middleware
-  allStoreEnhancers
+  window.devToolsExtension && window.devToolsExtension()
 )
 
 
